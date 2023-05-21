@@ -1,0 +1,8 @@
+.serverless
+dbScripts
+node_modules
+README.md
+.eslintrc.js
+.gitignore
+.prettierrc
+rs-cart-api.tar.gz
