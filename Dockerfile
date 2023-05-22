@@ -9,11 +9,14 @@ RUN npm install
 RUN npm run build && npm cache clean --force
 
 FROM node:alpine as runner
-COPY --from=builder /app/cart-api/dist /app/cart-api
+ENV NODE_ENV=production
+COPY --from=builder /app/cart-api/dist /app/cart-api/dist
+COPY --from=builder /app/cart-api/package*.json /app/cart-api/
 
 WORKDIR /app/cart-api
+RUN npm install
 USER node
 
 ENV PORT 4000
 EXPOSE 4000
-ENTRYPOINT ["node", "lambda.js"]
+ENTRYPOINT ["node", "dist/main.js"]
